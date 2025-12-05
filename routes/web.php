@@ -37,6 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/services', [ServiceController::class, 'store'])->name('services.store');
     Route::put('/services/{id}', [ServiceController::class, 'update'])->name('services.update');
     Route::delete('/services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
+
+    // Service Expiry Routes
+    Route::get('/services-expiry', [App\Http\Controllers\ServiceExpiryController::class, 'index'])->name('services.expiry');
 });
 
 require __DIR__.'/auth.php';

@@ -30,8 +30,8 @@ class AccountController extends Controller
     {
         $validated = $request->validate([
             'ac_title' => 'required|string|max:255',
-            'ac_owner' => 'required|string|max:45',
-            'ac_contact' => 'required|string|max:45',
+            'ac_owner' => 'nullable|string|max:45',
+            'ac_contact' => 'nullable|string|max:45',
         ]);
 
         $account = Account::create($validated);
@@ -52,8 +52,8 @@ class AccountController extends Controller
         
         $validated = $request->validate([
             'ac_title' => 'required|string|max:255',
-            'ac_owner' => 'required|string|max:45',
-            'ac_contact' => 'required|string|max:45',
+            'ac_owner' => 'nullable|string|max:45',
+            'ac_contact' => 'nullable|string|max:45',
         ]);
 
         $account->update($validated);

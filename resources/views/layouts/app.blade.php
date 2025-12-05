@@ -12,10 +12,10 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Admin CSS -->
+    <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     
-    @yield('styles')
+    @stack('styles')
 </head>
 <body>
     <div class="admin-wrapper">
@@ -31,7 +31,19 @@
             @include('layouts.header')
             
             <!-- Main Content -->
-            @yield('contents')
+            <main class="main-content">
+                <section class="content">
+                    @if(session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    @endif
+
+                    @yield('content')
+                </section>
+            </main>
             
             <!-- Footer -->
             @include('layouts.footer')
@@ -43,7 +55,6 @@
     
     <!-- Admin Scripts -->
     <script src="{{ asset('js/admin.js') }}"></script>
-    @yield('scripts')
+    @stack('scripts')
 </body>
 </html>
-

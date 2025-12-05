@@ -18,15 +18,17 @@ class ServiceController extends Controller
             $services = Service::with(['account', 'product'])->latest()->get();
             return response()->json([
                 'success' => true,
-                'data' => $services
+                'data' => $services,
+                'service_statuses' => config('constants.service_status')
             ]);
         }
 
         // Get accounts and products for dropdowns
         $accounts = Account::all();
         $products = Product::all();
+        $serviceStatuses = config('constants.service_status');
 
-        return view('services.index', compact('accounts', 'products'));
+        return view('services.index', compact('accounts', 'products', 'serviceStatuses'));
     }
 
     /**
@@ -48,12 +50,12 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'pro_id' => 'required|exists:acm_products,pro_id',
-            'ac_id' => 'required|exists:acm_accounts,ac_id',
+            'pro_id' => 'nullable|exists:acm_products,pro_id',
+            'ac_id' => 'nullable|exists:acm_accounts,ac_id',
             'service_title' => 'required|string|max:255',
-            'service_description' => 'required|string',
-            'service_email' => 'required|email|max:255',
-            'service_contact' => 'required|string|max:255',
+            'service_description' => 'nullable|string',
+            'service_email' => 'nullable|email|max:255',
+            'service_contact' => 'nullable|string|max:255',
             'pro_link' => 'nullable|string',
             'service_domain' => 'nullable|integer',
             'service_person' => 'nullable|string|max:45',
@@ -65,6 +67,10 @@ class ServiceController extends Controller
             'service_due_date' => 'required|date|after_or_equal:service_start_date',
             'service_status' => 'nullable|integer',
             'service_paid_status' => 'nullable|integer',
+            'service_additional_detail' => 'nullable|string|max:255',
+            'service_db' => 'nullable|string|max:100',
+            'service_db_user' => 'nullable|string|max:100',
+            'service_db_password' => 'nullable|string|max:100',
         ]);
 
         // Set defaults
@@ -89,12 +95,12 @@ class ServiceController extends Controller
         $service = Service::findOrFail($id);
         
         $validated = $request->validate([
-            'pro_id' => 'required|exists:acm_products,pro_id',
-            'ac_id' => 'required|exists:acm_accounts,ac_id',
+            'pro_id' => 'nullable|exists:acm_products,pro_id',
+            'ac_id' => 'nullable|exists:acm_accounts,ac_id',
             'service_title' => 'required|string|max:255',
-            'service_description' => 'required|string',
-            'service_email' => 'required|email|max:255',
-            'service_contact' => 'required|string|max:255',
+            'service_description' => 'nullable|string',
+            'service_email' => 'nullable|email|max:255',
+            'service_contact' => 'nullable|string|max:255',
             'pro_link' => 'nullable|string',
             'service_domain' => 'nullable|integer',
             'service_person' => 'nullable|string|max:45',
@@ -106,6 +112,10 @@ class ServiceController extends Controller
             'service_due_date' => 'required|date|after_or_equal:service_start_date',
             'service_status' => 'nullable|integer',
             'service_paid_status' => 'nullable|integer',
+            'service_additional_detail' => 'nullable|string|max:255',
+            'service_db' => 'nullable|string|max:100',
+            'service_db_user' => 'nullable|string|max:100',
+            'service_db_password' => 'nullable|string|max:100',
         ]);
 
         $service->update($validated);

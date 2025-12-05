@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title', 'Products')
 @push('styles')
@@ -471,8 +471,17 @@ textarea.form-control {
                     <input type="text" id="pro_title" name="pro_title" class="form-control" required placeholder="Enter product title">
                 </div>
                 <div class="form-group">
-                    <label for="pro_description">Description <span class="required">*</span></label>
-                    <textarea id="pro_description" name="pro_description" class="form-control" required placeholder="Enter product description" rows="3"></textarea>
+                    <label for="pro_type">Product Type</label>
+                    <select id="pro_type" name="pro_type" class="form-control">
+                        <option value="">Select Product Type</option>
+                        @foreach($proTypes as $id => $name)
+                            <option value="{{ $id }}">{{ $name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="pro_description">Description</label>
+                    <textarea id="pro_description" name="pro_description" class="form-control" placeholder="Enter product description" rows="3"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="pro_expiry_date">Expiry Date <span class="required">*</span></label>
@@ -504,8 +513,17 @@ textarea.form-control {
                     <input type="text" id="edit_pro_title" name="pro_title" class="form-control" required placeholder="Enter product title">
                 </div>
                 <div class="form-group">
-                    <label for="edit_pro_description">Description <span class="required">*</span></label>
-                    <textarea id="edit_pro_description" name="pro_description" class="form-control" required placeholder="Enter product description" rows="3"></textarea>
+                    <label for="edit_pro_type">Product Type</label>
+                    <select id="edit_pro_type" name="pro_type" class="form-control">
+                        <option value="">Select Product Type</option>
+                        @foreach($proTypes as $id => $name)
+                            <option value="{{ $id }}">{{ $name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit_pro_description">Description</label>
+                    <textarea id="edit_pro_description" name="pro_description" class="form-control" placeholder="Enter product description" rows="3"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="edit_pro_expiry_date">Expiry Date <span class="required">*</span></label>
@@ -764,6 +782,7 @@ function openEditProductModal(product) {
     
     // Populate form fields
     $('#edit_id').val(product.pro_id);
+    $('#edit_pro_type').val(product.pro_type);
     $('#edit_pro_title').val(product.pro_title);
     $('#edit_pro_description').val(product.pro_description);
     $('#edit_pro_expiry_date').val(product.pro_expiry_date ? product.pro_expiry_date.split('T')[0] : '');

@@ -11,10 +11,23 @@ class Product extends Model
      */
     protected $table = 'acm_products';
     
-   
+    /**
+     * The primary key associated with the table.
+     */
     protected $primaryKey = 'pro_id';
 
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     */
+    public $incrementing = true;
+
+    /**
+     * The data type of the primary key.
+     */
+    protected $keyType = 'int';
+
     protected $fillable = [
+        'pro_type',
         'pro_title',
         'pro_description',
         'pro_expiry_date',

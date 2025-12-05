@@ -16,11 +16,13 @@ class ProductController extends Controller
             $products = Product::latest()->get();
             return response()->json([
                 'success' => true,
-                'data' => $products
+                'data' => $products,
+                'pro_types' => config('constants.pro_type')
             ]);
         }
 
-        return view('products.index');
+        $proTypes = config('constants.pro_type');
+        return view('products.index', compact('proTypes'));
     }
 
     /**
@@ -30,8 +32,9 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'pro_title' => 'required|string|max:255',
-            'pro_description' => 'required|string',
+            'pro_description' => 'nullable|string',
             'pro_expiry_date' => 'required|date',
+            'pro_type' => 'nullable|integer|in:' . implode(',', array_keys(config('constants.pro_type'))),
         ]);
 
         $product = Product::create($validated);
@@ -52,8 +55,9 @@ class ProductController extends Controller
         
         $validated = $request->validate([
             'pro_title' => 'required|string|max:255',
-            'pro_description' => 'required|string',
+            'pro_description' => 'nullable|string',
             'pro_expiry_date' => 'required|date',
+            'pro_type' => 'nullable|integer|in:' . implode(',', array_keys(config('constants.pro_type'))),
         ]);
 
         $product->update($validated);
@@ -79,3 +83,4 @@ class ProductController extends Controller
         ]);
     }
 }
+

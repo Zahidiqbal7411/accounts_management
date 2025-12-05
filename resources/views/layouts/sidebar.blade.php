@@ -22,8 +22,13 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('services.index') }}" class="{{ request()->routeIs('services.*') ? 'active' : '' }}">
+                <a href="{{ route('services.index') }}" class="{{ request()->routeIs('services.index') ? 'active' : '' }}">
                     <i class="fas fa-cogs"></i> Services
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('services.expiry') }}" class="{{ request()->routeIs('services.expiry') ? 'active' : '' }}">
+                    <i class="fas fa-calendar-times"></i> Service Expiry
                 </a>
             </li>
             <li>

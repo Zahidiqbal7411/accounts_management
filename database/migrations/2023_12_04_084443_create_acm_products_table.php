@@ -14,10 +14,11 @@ return new class extends Migration
                     Schema::create('acm_products', function (Blueprint $table) {
 
                     $table->unsignedInteger('pro_id')->autoIncrement()->primary();   // INT(10)
+                    $table->tinyInteger('pro_type')->nullable();                     // INT(1)
                     
                     $table->string('pro_title');                          // VARCHAR(255)
-                    $table->text('pro_description');                      // TEXT
-                    $table->date('pro_expiry_date');                           // DATE
+                    $table->text('pro_description')->nullable();          // TEXT
+                    $table->date('pro_expiry_date');                      // DATE
                     
                     $table->timestamps();
                 });

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title', 'Services')
 
@@ -47,20 +47,29 @@
         </div>
         <form id="addServiceForm">
             <div class="modal-body">
+                <div class="form-group">
+                    <label for="ac_id">Account Title</label>
+                    <select id="ac_id" name="ac_id" class="form-control">
+                        <option value="">Select Account</option>
+                        @foreach($accounts as $account)
+                            <option value="{{ $account->ac_id }}">{{ $account->ac_title }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="ac_id">Account <span class="required">*</span></label>
-                        <select id="ac_id" name="ac_id" class="form-control" required>
-                            <option value="">Select Account</option>
-                            @foreach($accounts as $account)
-                                <option value="{{ $account->ac_id }}">{{ $account->ac_title }}</option>
+                        <label for="pro_id">Hosting</label>
+                        <select id="pro_id" name="pro_id" class="form-control">
+                            <option value="">Select Hosting</option>
+                            @foreach($products as $product)
+                                <option value="{{ $product->pro_id }}">{{ $product->pro_title }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="pro_id">Product <span class="required">*</span></label>
-                        <select id="pro_id" name="pro_id" class="form-control" required>
-                            <option value="">Select Product</option>
+                        <label for="service_domain">Select Domain</label>
+                        <select id="service_domain" name="service_domain" class="form-control">
+                            <option value="">Select Domain</option>
                             @foreach($products as $product)
                                 <option value="{{ $product->pro_id }}">{{ $product->pro_title }}</option>
                             @endforeach
@@ -68,54 +77,49 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="pro_link">Software Link</label>
+                    <input type="text" id="pro_link" name="pro_link" class="form-control" placeholder="Enter software link">
+                </div>
+                <div class="form-group">
                     <label for="service_title">Service Title <span class="required">*</span></label>
                     <input type="text" id="service_title" name="service_title" class="form-control" required placeholder="Enter service title">
                 </div>
                 <div class="form-group">
-                    <label for="service_description">Description <span class="required">*</span></label>
-                    <textarea id="service_description" name="service_description" class="form-control" required placeholder="Enter service description" rows="3"></textarea>
+                    <label for="service_description">Business Address</label>
+                    <textarea id="service_description" name="service_description" class="form-control" placeholder="Enter business address" rows="3"></textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="service_email">Email <span class="required">*</span></label>
-                        <input type="email" id="service_email" name="service_email" class="form-control" required placeholder="Enter email">
+                        <label for="service_email">Business Email</label>
+                        <input type="email" id="service_email" name="service_email" class="form-control" placeholder="Enter business email">
                     </div>
                     <div class="form-group">
-                        <label for="service_contact">Contact <span class="required">*</span></label>
-                        <input type="text" id="service_contact" name="service_contact" class="form-control" required placeholder="Enter contact number">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="pro_link">Product Link</label>
-                        <input type="text" id="pro_link" name="pro_link" class="form-control" placeholder="Enter product link">
-                    </div>
-                    <div class="form-group">
-                        <label for="service_domain">Domain Count</label>
-                        <input type="number" id="service_domain" name="service_domain" class="form-control" placeholder="Enter domain count">
+                        <label for="service_contact">Business Contact</label>
+                        <input type="text" id="service_contact" name="service_contact" class="form-control" placeholder="Enter business contact number">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="service_person">Primary Person</label>
-                        <input type="text" id="service_person" name="service_person" class="form-control" placeholder="Enter primary person name" maxlength="45">
+                        <label for="service_person">Contact Person (Primary)</label>
+                        <input type="text" id="service_person" name="service_person" class="form-control" placeholder="Enter primary contact person name" maxlength="45">
                     </div>
                     <div class="form-group">
-                        <label for="service_person_contact">Primary Person Contact</label>
+                        <label for="service_person_contact">Contact</label>
                         <input type="text" id="service_person_contact" name="service_person_contact" class="form-control" placeholder="Enter contact" maxlength="45">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="service_person2">Secondary Person</label>
-                        <input type="text" id="service_person2" name="service_person2" class="form-control" placeholder="Enter secondary person name" maxlength="45">
+                        <label for="service_person2">Contact Person (Secondary)</label>
+                        <input type="text" id="service_person2" name="service_person2" class="form-control" placeholder="Enter secondary contact person name" maxlength="45">
                     </div>
                     <div class="form-group">
-                        <label for="service_person2_contact">Secondary Person Contact</label>
+                        <label for="service_person2_contact">Contact</label>
                         <input type="text" id="service_person2_contact" name="service_person2_contact" class="form-control" placeholder="Enter contact" maxlength="45">
                     </div>
                 </div>
-                <div class="form-group">
+                <!-- Person Email hidden temporarily -->
+                <div class="form-group" style="display: none;">
                     <label for="service_personemail">Person Email</label>
                     <input type="email" id="service_personemail" name="service_personemail" class="form-control" placeholder="Enter person email" maxlength="45">
                 </div>
@@ -133,8 +137,9 @@
                     <div class="form-group">
                         <label for="service_status">Status</label>
                         <select id="service_status" name="service_status" class="form-control">
-                            <option value="1">Active</option>
-                            <option value="0">Inactive</option>
+                            @foreach($serviceStatuses as $id => $name)
+                                <option value="{{ $id }}" {{ $id == 1 ? 'selected' : '' }}>{{ $name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
@@ -143,6 +148,24 @@
                             <option value="0">Unpaid</option>
                             <option value="1">Paid</option>
                         </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="service_additional_detail">Service Additional Detail</label>
+                    <textarea id="service_additional_detail" name="service_additional_detail" class="form-control" placeholder="Enter service additional details" rows="3"></textarea>
+                </div>
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label for="service_db">Service DB</label>
+                        <input type="text" id="service_db" name="service_db" class="form-control" placeholder="Enter service database name">
+                    </div>
+                    <div class="form-group">
+                        <label for="service_db_user">Service DB User</label>
+                        <input type="text" id="service_db_user" name="service_db_user" class="form-control" placeholder="Enter database username">
+                    </div>
+                    <div class="form-group">
+                        <label for="service_db_password">Service DB Password</label>
+                        <input type="text" id="service_db_password" name="service_db_password" class="form-control" placeholder="Enter database password">
                     </div>
                 </div>
             </div>
@@ -166,20 +189,29 @@
         <form id="editServiceForm">
             <input type="hidden" id="edit_id" name="id">
             <div class="modal-body">
+                <div class="form-group">
+                    <label for="edit_ac_id">Account Title</label>
+                    <select id="edit_ac_id" name="ac_id" class="form-control">
+                        <option value="">Select Account</option>
+                        @foreach($accounts as $account)
+                            <option value="{{ $account->ac_id }}">{{ $account->ac_title }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="edit_ac_id">Account <span class="required">*</span></label>
-                        <select id="edit_ac_id" name="ac_id" class="form-control" required>
-                            <option value="">Select Account</option>
-                            @foreach($accounts as $account)
-                                <option value="{{ $account->ac_id }}">{{ $account->ac_title }}</option>
+                        <label for="edit_pro_id">Hosting</label>
+                        <select id="edit_pro_id" name="pro_id" class="form-control">
+                            <option value="">Select Hosting</option>
+                            @foreach($products as $product)
+                                <option value="{{ $product->pro_id }}">{{ $product->pro_title }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="edit_pro_id">Product <span class="required">*</span></label>
-                        <select id="edit_pro_id" name="pro_id" class="form-control" required>
-                            <option value="">Select Product</option>
+                        <label for="edit_service_domain">Select Domain</label>
+                        <select id="edit_service_domain" name="service_domain" class="form-control">
+                            <option value="">Select Domain</option>
                             @foreach($products as $product)
                                 <option value="{{ $product->pro_id }}">{{ $product->pro_title }}</option>
                             @endforeach
@@ -187,54 +219,49 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="edit_pro_link">Software Link</label>
+                    <input type="text" id="edit_pro_link" name="pro_link" class="form-control" placeholder="Enter software link">
+                </div>
+                <div class="form-group">
                     <label for="edit_service_title">Service Title <span class="required">*</span></label>
                     <input type="text" id="edit_service_title" name="service_title" class="form-control" required placeholder="Enter service title">
                 </div>
                 <div class="form-group">
-                    <label for="edit_service_description">Description <span class="required">*</span></label>
-                    <textarea id="edit_service_description" name="service_description" class="form-control" required placeholder="Enter service description" rows="3"></textarea>
+                    <label for="edit_service_description">Business Address</label>
+                    <textarea id="edit_service_description" name="service_description" class="form-control" placeholder="Enter business address" rows="3"></textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="edit_service_email">Email <span class="required">*</span></label>
-                        <input type="email" id="edit_service_email" name="service_email" class="form-control" required placeholder="Enter email">
+                        <label for="edit_service_email">Business Email</label>
+                        <input type="email" id="edit_service_email" name="service_email" class="form-control" placeholder="Enter business email">
                     </div>
                     <div class="form-group">
-                        <label for="edit_service_contact">Contact <span class="required">*</span></label>
-                        <input type="text" id="edit_service_contact" name="service_contact" class="form-control" required placeholder="Enter contact number">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="edit_pro_link">Product Link</label>
-                        <input type="text" id="edit_pro_link" name="pro_link" class="form-control" placeholder="Enter product link">
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_service_domain">Domain Count</label>
-                        <input type="number" id="edit_service_domain" name="service_domain" class="form-control" placeholder="Enter domain count">
+                        <label for="edit_service_contact">Business Contact</label>
+                        <input type="text" id="edit_service_contact" name="service_contact" class="form-control" placeholder="Enter business contact number">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="edit_service_person">Primary Person</label>
-                        <input type="text" id="edit_service_person" name="service_person" class="form-control" placeholder="Enter primary person name" maxlength="45">
+                        <label for="edit_service_person">Contact Person (Primary)</label>
+                        <input type="text" id="edit_service_person" name="service_person" class="form-control" placeholder="Enter primary contact person name" maxlength="45">
                     </div>
                     <div class="form-group">
-                        <label for="edit_service_person_contact">Primary Person Contact</label>
+                        <label for="edit_service_person_contact">Contact</label>
                         <input type="text" id="edit_service_person_contact" name="service_person_contact" class="form-control" placeholder="Enter contact" maxlength="45">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="edit_service_person2">Secondary Person</label>
-                        <input type="text" id="edit_service_person2" name="service_person2" class="form-control" placeholder="Enter secondary person name" maxlength="45">
+                        <label for="edit_service_person2">Contact Person (Secondary)</label>
+                        <input type="text" id="edit_service_person2" name="service_person2" class="form-control" placeholder="Enter secondary contact person name" maxlength="45">
                     </div>
                     <div class="form-group">
-                        <label for="edit_service_person2_contact">Secondary Person Contact</label>
+                        <label for="edit_service_person2_contact">Contact</label>
                         <input type="text" id="edit_service_person2_contact" name="service_person2_contact" class="form-control" placeholder="Enter contact" maxlength="45">
                     </div>
                 </div>
-                <div class="form-group">
+                <!-- Person Email hidden temporarily -->
+                <div class="form-group" style="display: none;">
                     <label for="edit_service_personemail">Person Email</label>
                     <input type="email" id="edit_service_personemail" name="service_personemail" class="form-control" placeholder="Enter person email" maxlength="45">
                 </div>
@@ -252,8 +279,9 @@
                     <div class="form-group">
                         <label for="edit_service_status">Status</label>
                         <select id="edit_service_status" name="service_status" class="form-control">
-                            <option value="1">Active</option>
-                            <option value="0">Inactive</option>
+                            @foreach($serviceStatuses as $id => $name)
+                                <option value="{{ $id }}">{{ $name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
@@ -262,6 +290,24 @@
                             <option value="0">Unpaid</option>
                             <option value="1">Paid</option>
                         </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="edit_service_additional_detail">Service Additional Detail</label>
+                    <textarea id="edit_service_additional_detail" name="service_additional_detail" class="form-control" placeholder="Enter service additional details" rows="3"></textarea>
+                </div>
+                <div class="form-row-3">
+                    <div class="form-group">
+                        <label for="edit_service_db">Service DB</label>
+                        <input type="text" id="edit_service_db" name="service_db" class="form-control" placeholder="Enter service database name">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_service_db_user">Service DB User</label>
+                        <input type="text" id="edit_service_db_user" name="service_db_user" class="form-control" placeholder="Enter database username">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_service_db_password">Service DB Password</label>
+                        <input type="text" id="edit_service_db_password" name="service_db_password" class="form-control" placeholder="Enter database password">
                     </div>
                 </div>
             </div>
@@ -496,6 +542,11 @@
 .badge-info {
     background: #dbeafe;
     color: #1e40af;
+}
+
+.badge-secondary {
+    background: #e5e7eb;
+    color: #4b5563;
 }
 
 /* Actions Cell */
@@ -746,6 +797,17 @@
 }
 
 .form-row .form-group {
+    margin-bottom: 0;
+}
+
+.form-row-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.form-row-3 .form-group {
     margin-bottom: 0;
 }
 
@@ -1074,6 +1136,14 @@ function loadServices() {
 }
 
 // Render services table
+// Status badge mapping
+var statusBadges = {
+    1: '<span class="badge badge-success">Active</span>',
+    2: '<span class="badge badge-danger">Inactive</span>',
+    3: '<span class="badge badge-warning">Suspended</span>',
+    4: '<span class="badge badge-info">Terminated</span>'
+};
+
 function renderServicesTable(services) {
     var html = '';
     $.each(services, function(index, service) {
@@ -1081,9 +1151,7 @@ function renderServicesTable(services) {
         var dueDate = service.service_due_date ? new Date(service.service_due_date).toLocaleDateString() : '-';
         var accountName = service.account ? escapeHtml(service.account.ac_title) : '-';
         var productName = service.product ? escapeHtml(service.product.pro_title) : '-';
-        var statusBadge = service.service_status == 1 
-            ? '<span class="badge badge-success">Active</span>' 
-            : '<span class="badge badge-danger">Inactive</span>';
+        var statusBadge = statusBadges[service.service_status] || '<span class="badge badge-secondary">Unknown</span>';
         
         html += `
             <tr data-id="${service.service_id}">
@@ -1213,6 +1281,10 @@ function openEditServiceModal(service) {
     $('#edit_service_due_date').val(service.service_due_date ? service.service_due_date.split('T')[0] : '');
     $('#edit_service_status').val(service.service_status);
     $('#edit_service_paid_status').val(service.service_paid_status);
+    $('#edit_service_additional_detail').val(service.service_additional_detail);
+    $('#edit_service_db').val(service.service_db);
+    $('#edit_service_db_user').val(service.service_db_user);
+    $('#edit_service_db_password').val(service.service_db_password);
     
     openModal('editServiceModal');
 }

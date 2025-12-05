@@ -6,10 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
+    /**
+     * The table associated with the model.
+     */
     protected $table = 'acm_accounts';
     
-    
+    /**
+     * The primary key associated with the table.
+     */
     protected $primaryKey = 'ac_id';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     */
+    public $incrementing = true;
+
+    /**
+     * The data type of the primary key.
+     */
+    protected $keyType = 'int';
 
    
     protected $fillable = [

@@ -17,6 +17,16 @@ class Service extends Model
     protected $primaryKey = 'service_id';
 
     /**
+     * Indicates if the IDs are auto-incrementing.
+     */
+    public $incrementing = true;
+
+    /**
+     * The data type of the primary key.
+     */
+    protected $keyType = 'int';
+
+    /**
      * The attributes that are mass assignable.
      */
     protected $fillable = [
@@ -37,6 +47,10 @@ class Service extends Model
         'service_due_date',
         'service_status',
         'service_paid_status',
+        'service_additional_detail',
+        'service_db',
+        'service_db_user',
+        'service_db_password',
     ];
 
     /**
@@ -45,6 +59,9 @@ class Service extends Model
     protected $casts = [
         'service_start_date' => 'date',
         'service_due_date' => 'date',
+        'service_db' => 'encrypted',
+        'service_db_user' => 'encrypted',
+        'service_db_password' => 'encrypted',
     ];
 
     /**

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title', 'Accounts')
 @push('styles')
@@ -418,6 +418,30 @@
     }
 }
 </style>
+
+
+<?php
+
+$pro_type = array(
+    1 => 'hosting',
+    2 => 'domain',
+    3 => 'ssl',
+    4 => 'email',
+    5 => 'backup',
+    6 => 'security',
+    7 => 'monitoring',
+    8 => 'support',
+    9 => 'others',
+);
+
+$service_status = array(
+    1 => 'active',
+    2 => 'inactive',
+    3 => 'suspended',
+    4 => 'terminated',
+);
+
+?>
 @endpush
 
 @section('content')
@@ -466,12 +490,12 @@
                     <input type="text" id="ac_title" name="ac_title" class="form-control" required placeholder="Enter account title">
                 </div>
                 <div class="form-group">
-                    <label for="ac_owner">Owner <span class="required">*</span></label>
-                    <input type="text" id="ac_owner" name="ac_owner" class="form-control" required placeholder="Enter owner name" maxlength="45">
+                    <label for="ac_owner">Owner</label>
+                    <input type="text" id="ac_owner" name="ac_owner" class="form-control" placeholder="Enter owner name" maxlength="45">
                 </div>
                 <div class="form-group">
-                    <label for="ac_contact">Contact <span class="required">*</span></label>
-                    <input type="text" id="ac_contact" name="ac_contact" class="form-control" required placeholder="Enter contact number" maxlength="45">
+                    <label for="ac_contact">Contact</label>
+                    <input type="text" id="ac_contact" name="ac_contact" class="form-control" placeholder="Enter contact number" maxlength="45">
                 </div>
             </div>
             <div class="modal-footer">
@@ -499,12 +523,12 @@
                     <input type="text" id="edit_ac_title" name="ac_title" class="form-control" required placeholder="Enter account title">
                 </div>
                 <div class="form-group">
-                    <label for="edit_ac_owner">Owner <span class="required">*</span></label>
-                    <input type="text" id="edit_ac_owner" name="ac_owner" class="form-control" required placeholder="Enter owner name" maxlength="45">
+                    <label for="edit_ac_owner">Owner</label>
+                    <input type="text" id="edit_ac_owner" name="ac_owner" class="form-control" placeholder="Enter owner name" maxlength="45">
                 </div>
                 <div class="form-group">
-                    <label for="edit_ac_contact">Contact <span class="required">*</span></label>
-                    <input type="text" id="edit_ac_contact" name="ac_contact" class="form-control" required placeholder="Enter contact number" maxlength="45">
+                    <label for="edit_ac_contact">Contact</label>
+                    <input type="text" id="edit_ac_contact" name="ac_contact" class="form-control" placeholder="Enter contact number" maxlength="45">
                 </div>
             </div>
             <div class="modal-footer">
